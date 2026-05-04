@@ -10,31 +10,40 @@ function UploadBox({ road, onDrop, onChange, file }) {
       onDrop={(e) => onDrop(e, road)}
       onDragOver={(e) => e.preventDefault()}
 
-      style={{
-        background: tokens.card,
-        border: `2px dashed ${tokens.border}`,
-        borderRadius: "16px",
-        padding: "30px",
-        textAlign: "center"
-      }}
+      className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-lg shadow-purple-500/20 hover:scale-105 hover:shadow-purple-500/40 transition"
     >
 
       {/* ROAD LABEL */}
-      <h4>{road.toUpperCase()}</h4>
+      <h3 className="text-2xl font-semibold text-white mb-2">
+        {road === "road1" && "🚗"}
+        {road === "road2" && "🚗"}
+        {road === "road3" && "🚗"}
+        {road === "road4" && "🚗"} {road.toUpperCase()}
+      </h3>
 
-      <p>Drag & Drop Video</p>
+      <p className="text-gray-400 mb-6">Drag & Drop Video</p>
 
-      {/* FILE INPUT */}
+      {/* FILE INPUT - HIDDEN */}
       <input
         type="file"
         accept="video/*"
         onChange={(e) => onChange(e, road)}
+        id={`file-${road}`}
+        className="hidden"
       />
+
+      {/* STYLED BUTTON */}
+      <label
+        htmlFor={`file-${road}`}
+        className="inline-block px-6 py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium cursor-pointer transition"
+      >
+        Select Video
+      </label>
 
       {/* SHOW FILE NAME */}
       {file && (
-        <p style={{ color: tokens.green }}>
-          {file.name}
+        <p className="text-green-400 mt-4 font-semibold">
+          ✅ {file.name}
         </p>
       )}
 
