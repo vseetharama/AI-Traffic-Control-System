@@ -1,24 +1,19 @@
-// App.jsx → Routing configuration
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Home from "./pages/Home";
+import Members from "./pages/Members";
 import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 
 function App() {
   return (
     <BrowserRouter>
-
-      {/* ROUTES → Defines pages */}
       <Routes>
-
-        {/* Dashboard Page (Main UI) */}
-        <Route path="/" element={<Dashboard />} />
-
-        {/* Upload Page (Video Input) */}
+        <Route path="/" element={<Home />} />
+        <Route path="/members" element={<Members />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
-
       </Routes>
-
     </BrowserRouter>
   );
 }

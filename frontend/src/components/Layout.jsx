@@ -1,34 +1,34 @@
-// Layout.jsx → COMMON PAGE WRAPPER (BACKGROUND + GRID)
+import { Link } from "react-router-dom";
 
-import tokens from "../styles/tokens";
-
-function Layout({ children }) {
-
+export default function Layout({ children }) {
   return (
+    <div
+      className="min-h-screen text-white"
+      style={{
+        background: "#020617",
+        backgroundImage: `
+          linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
+        `,
+        backgroundSize: "40px 40px",
+      }}
+    >
+      {/* NAVBAR */}
+      <div className="flex justify-between items-center px-10 py-5 border-b border-gray-800">
+        <h2 className="font-semibold text-lg">🚦 AI Traffic</h2>
 
-    // MAIN CONTAINER → applied to all pages
-    <div style={{
-      minHeight: "100vh",
+        <div className="flex gap-6 text-sm">
+          <Link to="/">Home</Link>
+          <Link to="/dashboard">Demo</Link>
+          <Link to="/members">Team</Link>
+          <Link to="/upload">Upload</Link>
+        </div>
+      </div>
 
-      // Dark background
-      backgroundColor: tokens.bg,
-
-      // GRID BACKGROUND (futuristic look)
-      backgroundImage: `
-        linear-gradient(${tokens.border} 1px, transparent 1px),
-        linear-gradient(90deg, ${tokens.border} 1px, transparent 1px)
-      `,
-      backgroundSize: "50px 50px",
-
-      color: tokens.text,
-      padding: "30px"
-    }}>
-
-      {/* CHILDREN → page content */}
-      {children}
-
+      {/* CENTER CONTENT */}
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        {children}
+      </div>
     </div>
   );
 }
-
-export default Layout;

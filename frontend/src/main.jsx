@@ -1,10 +1,10 @@
-// main.jsx → Entry point of React application
-
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./App.jsx";
 
-// Renders App component into index.html (root div)
+// 🔥 THIS LINE IS MANDATORY
+import "./index.css";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
