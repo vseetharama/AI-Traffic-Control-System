@@ -1,6 +1,7 @@
 // Upload.jsx → VIDEO INPUT PAGE
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import UploadBox from "../components/UploadBox";
 
@@ -9,6 +10,8 @@ function Upload() {
   // STATE → stores uploaded videos
   const [videos, setVideos] = useState({});
   const [uploading, setUploading] = useState(false);
+  const [processed, setProcessed] = useState(false);
+  const navigate = useNavigate();
 
   // HANDLE DRAG & DROP
   const handleDrop = (e, road) => {
@@ -54,15 +57,16 @@ function Upload() {
         body: formData
       });
 
-      const data = await response.json();
+      const responseData = await response.json();
 
       if (response.ok) {
-        console.log("Upload successful:", data);
+        console.log("Upload successful:", responseData);
         alert("✅ Videos uploaded successfully!");
         setVideos({}); // Clear files after successful upload
+        setProcessed(true); // Show View Results button
       } else {
-        console.error("Upload failed:", data);
-        alert(`❌ Upload failed: ${data.message || "Unknown error"}`);
+        console.error("Upload failed:", responseData);
+        alert(`❌ Upload failed: ${responseData.message || "Unknown error"}`);
       }
     } catch (error) {
       console.error("Upload error:", error);
@@ -115,6 +119,16 @@ function Upload() {
         >
           {uploading ? "Uploading..." : "Process Traffic Data"}
         </button>
+
+        {/* VIEW RESULTS BUTTON - ONLY AFTER UPLOAD SUCCESS */}
+        {processed && !uploading && (
+          <button
+            onClick={() => navigate("/results/road1")}
+            className="mt-4 px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold hover:scale-105 transition shadow-lg shadow-purple-500/40"
+          >
+            📊 View Results
+          </button>
+        )}
 
       </div>
 
